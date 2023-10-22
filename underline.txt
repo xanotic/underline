@@ -1,0 +1,23 @@
+#include <windows.h>
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    WORD originalAttributes = consoleInfo.wAttributes;
+
+    // Underline the first line
+    SetConsoleTextAttribute(hConsole, originalAttributes | COMMON_LVB_UNDERSCORE);
+    cout << "This text is underlined!" << endl;
+
+    // Reset the text attributes to remove the underline
+    SetConsoleTextAttribute(hConsole, originalAttributes);
+
+    // Print the second line without underline
+    cout << "This text is not underlined." << endl;
+
+    return 0;
+}
